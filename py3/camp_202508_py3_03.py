@@ -1,7 +1,7 @@
 #!/usr/pkg/bin/python3.13
 
 #
-# Time-stamp: <2025/07/31 15:30:46 (UT+08:00) daisuke>
+# Time-stamp: <2025/07/31 16:14:48 (UT+08:00) daisuke>
 #
 
 # importing math module
@@ -9,6 +9,9 @@ import math
 
 # data file
 file_data = 'sample_01.data'
+
+# output file
+file_output = 'hr.data'
 
 # making an empty dictionary for storing data
 dic_star = {}
@@ -39,9 +42,16 @@ with open (file_data, 'r') as fh_in:
         dic_star[star]['dist_pc']         = dist_pc
         dic_star[star]['absmag_V']        = absmag_V
 
-# sorting dictionary by value and printing values
-print (f'{"Name":16s}  {"Vmag":5s}  {"B-V":5s}  {"dist [pc]":9s}  {"absmag":6s}')
-for star in sorted (dic_star.items (), key=lambda x: x[1]['absmag_V']):
-    print (f'{star[0]:16s}  {star[1]["mag_V"]:+5.2f}',
-           f' {star[1]["colour_BV"]:+5.2f}',
-           f' {star[1]["dist_pc"]:9.1f}  {star[1]["absmag_V"]:+6.2f}')
+# sorting dictionary by value and writing data into a file
+with open (file_output, 'w') as fh_out:
+    # header of the data file
+    header = f'{"# Name":16s}  {"Vmag":5s}  {"B-V":5s}' \
+        + f'  {"dist [pc]":9s}  {"absmag":6s}\n'
+    # writing header into a file
+    fh_out.write (header)
+    # writing star data into a file
+    for star in sorted (dic_star.items (), key=lambda x: x[1]['absmag_V']):
+        data = f'{star[0]:16s}  {star[1]["mag_V"]:+5.2f}' \
+            + f'  {star[1]["colour_BV"]:+5.2f}' \
+            + f'  {star[1]["dist_pc"]:9.1f}  {star[1]["absmag_V"]:+6.2f}\n'
+        fh_out.write (data)
