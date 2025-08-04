@@ -1,7 +1,7 @@
 #!/usr/pkg/bin/python3.13
 
 #
-# Time-stamp: <2025/08/04 11:16:46 (UT+08:00) daisuke>
+# Time-stamp: <2025/08/04 11:52:18 (UT+08:00) daisuke>
 #
 
 # importing gzip module
@@ -64,7 +64,7 @@ with gzip.open (file_data, 'rb') as fh_in:
 # writing data into output file
 with open (file_output, 'w') as fh_out:
     # writing header
-    header = f'# cloud number, glon in deg, glat in deg, distance in kpc\n'
+    header = f'# cloud number, glon in deg, glat in deg, distance in kpc, mass in solar mass\n'
     fh_out.write (header)
     # writing data
     for number in sorted (dic_co.keys ()):
